@@ -30,7 +30,7 @@ The architecture illustrates the complete data flow from raw ingestion to busine
 
 ----
 
-![architecture_diagram.png]([path/to/your/image.png](https://github.com/Jaideepgupta/ecommerce-lakehouse-ml-pipeline/blob/main/architecture_diagram.png))
+![architecture_diagram.png](https://github.com/Jaideepgupta/ecommerce-lakehouse-ml-pipeline/blob/main/architecture_diagram.jpg)
 
 
 ---

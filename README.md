@@ -28,7 +28,12 @@ The architecture illustrates the complete data flow from raw ingestion to busine
 
 ## Architecture Layers:
 
-https://github.com/Jaideepgupta/ecommerce-lakehouse-ml-pipeline/blob/main/architecture_diagram.png
+----
+
+![architecture_diagram.png]([path/to/your/image.png](https://github.com/Jaideepgupta/ecommerce-lakehouse-ml-pipeline/blob/main/architecture_diagram.png))
+
+
+---
 
 This architecture ensures:
 
@@ -62,9 +67,6 @@ The pipeline starts with ecommerce user interaction data, which may include:
     browsing activity
 
 These events capture customer behavior on the ecommerce platform.
-
----
-
 
 ### 2. Data Ingestion Layer
 
@@ -221,6 +223,8 @@ The predictions and recommendations generated in the Gold layer are consumed by:
     Customer analytics tools
 
     Marketing platforms
+
+---
 
 # Model Retraining Strategy (Task 3 – Define Retraining Strategy)
 

@@ -27,7 +27,7 @@ The architecture illustrates the complete data flow from raw ingestion to busine
 
 _Architecture Layers:_
 
-
+https://github.com/Jaideepgupta/ecommerce-lakehouse-ml-pipeline/blob/main/architecture_diagram.png
 
 This architecture ensures:
 

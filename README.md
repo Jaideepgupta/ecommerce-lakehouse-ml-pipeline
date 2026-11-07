@@ -1,309 +1,67 @@
-# Ecommerce Purchase Prediction & Recommendation System Project Overview
+# 🛒 E-commerce Lakehouse ML Pipeline: Solution Design
 
-This project demonstrates an end-to-end Data Engineering and Machine Learning pipeline built using the Databricks Lakehouse architecture. The system processes ecommerce user activity data, performs feature engineering, trains machine learning models, and generates purchase predictions and product recommendations.
+**Architecture design for a Databricks lakehouse that turns e-commerce clickstream into purchase predictions and product recommendations.**
 
-The architecture follows the Bronze → Silver → Gold data architecture pattern, which is commonly used in modern data platforms to organize and process large-scale data efficiently.
+![Status](https://img.shields.io/badge/status-architecture%20design-blue?style=flat-square)
+![Databricks](https://img.shields.io/badge/Databricks-FF3621?style=flat-square&logo=databricks&logoColor=white)
+![Delta Lake](https://img.shields.io/badge/Delta%20Lake-00ADD4?style=flat-square)
+![Apache Spark](https://img.shields.io/badge/Apache%20Spark-E25A1C?style=flat-square&logo=apachespark&logoColor=white)
+![MLflow](https://img.shields.io/badge/MLflow-0194E2?style=flat-square&logo=mlflow&logoColor=white)
 
-The main objectives of the project are:
-
-    1) Build a scalable data pipeline
-
-    2) Engineer user behavior features
-
-    3) Train machine learning models
-
-    4) Generate purchase predictions
-
-    5) Produce product recommendations
-
-    6) Deliver insights to business applications
+> **Scope:** this repository is a **design document**. It covers the architecture, pipeline flow and model-retraining strategy, written as a solution-design exercise. It contains no implementation code.
 
 ---
 
-# Architecture Diagram (Task 1 – Draw Architecture Diagram)
-
-Below is the architecture used in this project.
-
-The architecture illustrates the complete data flow from raw ingestion to business predictions using the Databricks Lakehouse approach.
-
-## Architecture Layers:
-
-----
-
-![architecture_diagram.png](https://github.com/Jaideepgupta/ecommerce-lakehouse-ml-pipeline/blob/main/architecture_diagram.jpg)
-
-
----
-
-This architecture ensures:
-
-    Scalable data processing
-
-    Modular pipeline design
-
-    Reusable machine learning features
-
-    Efficient model deployment
-
-
-# Data Pipeline Flow (Task 2 – Document Pipeline Flow)
-
-This section explains how data moves through the pipeline.
-
----
-
-### 1. Data Sources
-
-The pipeline starts with ecommerce user interaction data, which may include:
-
-    product views
-
-    clicks
-
-    cart additions
-
-    purchases
-
-    browsing activity
-
-These events capture customer behavior on the ecommerce platform.
-
-### 2. Data Ingestion Layer
-
-Data ingestion brings raw data into the data platform.
-
-Possible ingestion methods include:
-
-    Batch ingestion
-
-    Streaming pipelines
-
-    Auto Loader in Databricks
-
-All incoming data is stored in Delta Lake format, which provides reliability and version control.
-
-### 3. Bronze Layer – Raw Data
-
-The Bronze layer stores raw event data exactly as received from the source systems.
-
-Characteristics:
-
-    Raw and unprocessed data
-
-    Append-only storage
-
-    Delta tables
-
-    Maintains historical data
-
-Example datasets:
-
-    user_events
-
-    product_clicks
-
-    transaction_logs
-
-The purpose of this layer is to preserve original data for traceability and recovery.
-
-### 4. Silver Layer – Data Cleaning & Feature Engineering
-
-The Silver layer transforms raw data into structured and cleaned datasets.
-
-Operations performed include:
-
-    Removing duplicate records
-
-    Handling missing values
-
-    Standardizing timestamps
-
-    Aggregating user activity
-
-Example engineered features:
-
-    total_events
-
-    total_spent
-
-    average_product_price
-
-    number_of_purchases
-
-    distinct_products_viewed
-
-These features help describe user behavior and are used for machine learning models.
-
-### 5. Feature Store & ML Training
-
-The Feature Store stores engineered features used for machine learning.
-
-Benefits include:
-
-    Consistent feature definitions
-
-    Feature reuse across models
-
-    Simplified training pipelines
-
-The ML training pipeline performs:
-
-    Load feature dataset
-
-    Split training and testing data
-
-    Train machine learning models
-
-    Evaluate performance
-
-    Track experiments using MLflow
-
-Possible models used:
-
-    Logistic Regression
-
-    Random Forest
-
-    ALS Collaborative Filtering (for recommendations)
-
-### 6. Model Registry
-
-The trained models are stored in the MLflow Model Registry.
-
-The registry manages the model lifecycle, including:
-
-    Development
-
-    Staging
-
-    Production
-
-Only models that improve performance are promoted to production stage.
-
-### 7. Batch Prediction Pipeline
-
-The batch prediction pipeline applies the production model to new user data.
-
-The pipeline generates:
-
-    purchase_probability
-
-    recommended_products
-
-These predictions help businesses identify customers likely to make purchases.
-
-### 8. Gold Layer – Business Analytics
-
-The Gold layer stores final curated datasets used by business teams.
-
-Examples:
-
-    customer_purchase_predictions
-
-    product_recommendations
-
-    aggregated business metrics
-
-These datasets power:
-
-    Business dashboards
-
-    Marketing analytics
-
-    Recommendation systems
-
-### 9. Business Applications
-
-The predictions and recommendations generated in the Gold layer are consumed by:
-
-    Ecommerce recommendation engines
-
-    Business dashboards
-
-    Customer analytics tools
-
-    Marketing platforms
-
----
-
-# Model Retraining Strategy (Task 3 – Define Retraining Strategy)
-
-Machine learning models must be continuously monitored and retrained to maintain performance.
-
-The retraining strategy includes the following components.
-
-## Scheduled Retraining
-
-Models are retrained periodically (for example weekly or monthly) using new user activity data.
-
-This ensures the model adapts to changing customer behavior patterns.
-
-## Data Drift Monitoring
-
-The system monitors feature distributions to detect data drift.
-
-If input data changes significantly, the model may become less accurate. In such cases, retraining is triggered.
-
-## Performance Monitoring
-
-Model performance metrics are continuously monitored.
-
-If performance drops below a defined threshold (e.g., accuracy or AUC), the system triggers retraining.
-
-## Model Versioning
-
-Each retrained model is saved as a new version in the Model Registry.
-
-Deployment process:
-
-    Train new model
-
-    Compare with current production model
-
-    Promote if performance improves
-
-    Otherwise discard
-
-This ensures only high-performing models are deployed.
-
-## Technologies Used 
-
-### Data Engineering
-
-    Apache Spark
-
-    Databricks
-
-    Delta Lake
-
-### Machine Learning
-
-    Spark MLlib
-
-    MLflow
-
-### Data Architecture
-
-    Bronze / Silver / Gold Data Layers
-
-    Feature Engineering Pipelines
-
-    Batch Prediction Pipelines
-
-### Key Skills Demonstrated
-
-    End-to-End Data Pipeline Design
-
-    Databricks Lakehouse Architecture
-
-    Delta Lake Data Management
-
-    Feature Engineering
-
-    Machine Learning Lifecycle Management
-
-    Experiment Tracking with MLflow
-
-    Recommendation Systems
-
-    Data Pipeline Optimization
+## Problem
+
+An e-commerce business wants to know **which users are likely to buy** and **what to recommend to them**, using behavioural events (views, clicks, add-to-cart, purchases), with a pipeline that keeps the models accurate as behaviour changes.
+
+## Architecture
+
+```mermaid
+flowchart LR
+    A[Clickstream events<br/>views · clicks · cart · purchases] --> B[Ingestion<br/>batch / Auto Loader]
+    B --> C[(Bronze<br/>raw Delta, append-only)]
+    C --> D[(Silver<br/>cleaned + user features)]
+    D --> E[Feature Store]
+    E --> F[Training<br/>MLflow tracking]
+    F --> G[Model Registry<br/>staging → production]
+    G --> H[Batch scoring]
+    H --> I[(Gold<br/>predictions + recommendations)]
+    I --> J[Dashboards · marketing · recommendation engine]
+    G -. drift / performance triggers .-> F
+```
+
+## Pipeline flow
+
+| Stage | Responsibility | Key outputs |
+|---|---|---|
+| **Ingestion** | Land raw events in Delta (batch, or Auto Loader for incremental files) | append-only event tables |
+| **Bronze** | Keep events exactly as received, for traceability and replay | `user_events`, `product_clicks`, `transaction_logs` |
+| **Silver** | Deduplicate, handle nulls, standardise timestamps, aggregate per user | `total_events`, `total_spent`, `number_of_purchases`, `average_product_price`, `distinct_products_viewed` |
+| **Feature Store** | Serve the same user features to training and scoring | versioned feature tables |
+| **Training** | Logistic Regression / Random Forest for purchase propensity; ALS collaborative filtering for recommendations; experiments tracked in MLflow | candidate models with metrics |
+| **Model Registry** | Lifecycle: development → staging → production; promote only if the metric improves | production model version |
+| **Batch scoring** | Apply the production model to fresh user features | `purchase_probability`, `recommended_products` |
+| **Gold** | Curated outputs for the business | `customer_purchase_predictions`, `product_recommendations`, aggregated metrics |
+
+## Retraining strategy
+
+- **Scheduled:** retrain weekly or monthly on new activity data.
+- **Data drift:** monitor feature distributions and trigger retraining on significant shift.
+- **Performance:** trigger retraining when AUC or accuracy falls below a threshold.
+- **Versioning:** every retrain registers a new model version. Compare it with production, promote if better, otherwise discard.
+
+## Design decisions
+
+- **Medallion layers** separate raw retention (Bronze) from business logic (Silver/Gold), so features can be rebuilt from history.
+- **A feature store** keeps training and scoring features identical, avoiding training/serving skew.
+- **Batch, not real-time, scoring:** propensity and recommendations change slowly, so a scheduled batch job is cheaper and simpler than an online endpoint.
+
+## Stack
+
+Databricks · Apache Spark · Delta Lake · Spark MLlib · MLflow (tracking + registry) · Databricks Feature Store
+
+## Next step
+
+Implement the design end to end in a Databricks notebook project: Auto Loader ingestion, Silver feature tables, an MLflow-tracked propensity model, and a scheduled batch-scoring job.
